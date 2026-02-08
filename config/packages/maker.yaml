@@ -1,0 +1,4 @@
+when@dev:
+    maker:
+        # Entity
+        root_namespace: 'App\Domain'
