@@ -11,4 +11,11 @@ interface CourseRepositoryInterface
     public function searchByTitle(string $query): array;
 
     public function findWithModules(): array;
+
+    /**
+     * @return Course[]
+     */
+    public function findLatest(int $limit): array;
+
+    public function delete(Course $entity): void;
 }

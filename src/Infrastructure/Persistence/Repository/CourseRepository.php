@@ -44,4 +44,19 @@ class CourseRepository extends ServiceEntityRepository implements CourseReposito
             ->getQuery()
             ->getResult();
     }
+
+    public function findLatest(int $limit): array
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.createdAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function delete(Course $entity): void
+    {
+        $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()->flush();
+    }
 }

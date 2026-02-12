@@ -23,29 +23,32 @@ readonly class SeederService
 
     public function createEntitiesFakeChain(): Course
     {
+        // Используем uniqid с more_entropy, чтобы гарантировать уникальность даже при множественных вызовах в одну секунду
+        $uniqueSuffix = uniqid('', true);
+
         $course = (new Course())
-            ->setTitle(sha1(time()));
+            ->setTitle(sha1('course-'.$uniqueSuffix));
         $this->courseRepository->create($course);
 
         $lesson = (new Lesson())
-            ->setTitle(sha1(time()))
+            ->setTitle(sha1('lesson-'.$uniqueSuffix))
             ->setCourse($course);
         $this->lessonRepository->create($lesson);
 
         // Создаём 2 навыка
         $skill_1 = (new Skill())
-            ->setTitle(sha1(time().'1'));
+            ->setTitle(sha1('skill-1-'.$uniqueSuffix));
         $this->skillRepository->create($skill_1);
         $skill_2 = (new Skill())
-            ->setTitle(sha1(time().'2'));
+            ->setTitle(sha1('skill-2-'.$uniqueSuffix));
         $this->skillRepository->create($skill_2);
 
         // Создаём 2 задания
         $task_1 = (new Task())
-            ->setTitle(sha1(time().'1'))
+            ->setTitle(sha1('task-1-'.$uniqueSuffix))
             ->setLesson($lesson);
         $task_2 = (new Task())
-            ->setTitle(sha1(time().'2'))
+            ->setTitle(sha1('task-2-'.$uniqueSuffix))
             ->setLesson($lesson);
 
         // Привязываем оба навыка к обоим заданиям через "многие ко мноим"
