@@ -26,6 +26,9 @@ services:
     App\Infrastructure\Persistence\Repository\:
         resource: '../src/Infrastructure/Persistence/Repository/'
 
+    App\Application\Mcp\Handlers\CourseHandler:
+        public: true
+
     App\Application\Mcp\McpServerCommand:
         arguments:
             $logger: '@monolog.logger.mcp'
